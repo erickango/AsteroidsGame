@@ -3,22 +3,31 @@ public void setup()
 {
   //your code here
   size(400, 400);
-  background(0);
+
 }
 SpaceShip bumber = new SpaceShip();
 public void draw() 
 {
   //your code here
-
+  background(0);
   bumber.show();
+  bumber.move();
+}
+public void keyPressed(){
+  if(keyCode == 87){ //w
+    bumber.accelerate(0.5);
+  }
+  if(keyCode == 83){bumber.accelerate(-0.5);}
+  if(keyCode == )
 }
 class SpaceShip extends Floater  
 {   
     //your code here
 
    public SpaceShip(){
-      yCorners = new int[3];
-     xCorners = new int[3];
+    corners = 3;
+      yCorners = new int[corners];
+     xCorners = new int[corners];
     xCorners[0] = -8;
      xCorners[1] = -8;
      xCorners[2] = 16;
@@ -27,7 +36,7 @@ class SpaceShip extends Floater
      yCorners[2]= 0; 
      myCenterX = 200;
      myCenterY = 200;
-     corners = 3;
+     
      myColor = #B266FF;
      myDirectionX = 0;
      myDirectionY = 0;
