@@ -3,6 +3,7 @@ public void setup()
 {
   //your code here
   size(400, 400);
+  frameRate(200);
 
 }
 SpaceShip bumber = new SpaceShip();
@@ -10,15 +11,42 @@ public void draw()
 {
   //your code here
   background(0);
-  bumber.show();
   bumber.move();
+  bumber.show();
+
 }
 public void keyPressed(){
   if(keyCode == 87){ //w
-    bumber.accelerate(0.5);
+    bumber.accelerate(0.25); //pretty  fast. constrain
   }
-  if(keyCode == 83){bumber.accelerate(-0.5);}
-  if(keyCode == )
+  if(keyCode == 83){bumber.accelerate(-0.25);} //s
+  if(keyCode == 65){bumber.rotate(-10);}   //a
+  if(keyCode == 68){bumber.rotate(10);}    //d
+  if(keyCode == 32){bumber.hyperSpace();}
+}
+class Stars
+{
+  int StarX;
+  int StarY;
+  public Stars(){
+    StarX = (int)(Math.random()*400);
+    StarY = (int)(Math.random()*400);
+  }
+  public void show(){
+    fill(255,255,0);
+    beginShape();
+    vertex(StarX, StarY + 5);top
+    vertex(StarX -2, StarY + 2);top left
+    vertex(StarX - 5, StarY + 2);left
+    vertex();bottom left
+    vertex();bottom
+    vertex(StarX , starY - 5);middle
+    vertex();bottom
+    vertex();bottom right
+    vertex();right
+    vertex(StarX + 2, StarY + 2;);top right
+    endShape(CLOSE);
+  }
 }
 class SpaceShip extends Floater  
 {   
@@ -54,6 +82,12 @@ class SpaceShip extends Floater
    public double getDirectionY() {return myDirectionY;}
    public void setPointDirection(int degrees) {myPointDirection = degrees;}
    public double getPointDirection() {return myPointDirection;}
+   public void hyperSpace(){
+    setDirectionX(0);
+    setDirectionY(0);
+    setX((int)(Math.random()*400));
+    setY((int)(Math.random()*400));
+   }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
