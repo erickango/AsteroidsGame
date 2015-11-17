@@ -1,12 +1,13 @@
 //your variable declarations here
+  Stars []twinklers = new Stars[20];
 public void setup() 
 {
   //your code here
-  size(400, 400);
+  size(600, 600);
   frameRate(200);
-  Stars twinklers[10] = new Stars[];
-  for(int i = 0; i > 10; i++){
-    
+
+  for(int i = 0; i < twinklers.length; i++){
+    twinklers[i] = new Stars();
     
   }
 }
@@ -18,9 +19,9 @@ public void draw()
   background(0);
   bumber.move();
   bumber.show();
-  for(int i = 0; i > 10; i++){
+  for(int i = 0; i < twinklers.length; i++){
     
-    twinkle[i].show();
+    twinklers[i].show();
   }
 
 }
@@ -43,7 +44,7 @@ class Stars
   }
   public void show(){
     fill(255,255,0);
-    ellipse(StarX, StarY, 10, 10);
+    ellipse(StarX, StarY, 5, 5);
   } 
 }
 class SpaceShip extends Floater  
@@ -88,6 +89,41 @@ class SpaceShip extends Floater
     setY((int)(Math.random()*400));
    }
 }
+
+
+class Asteroids extends Floater
+{
+  protected int rotSpeed;
+  public Asteroid(){
+    rotSpeed = (int)(Math.random() * 0.25);
+  }
+  public void move(){
+    rotate(rotSpeed);
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;     
+
+    //wrap around screen    
+    if(myCenterX >width)
+    {     
+      myCenterX = 0;    
+    }    
+    else if (myCenterX<0)
+    {     
+      myCenterX = width;    
+    }    
+    if(myCenterY >height)
+    {    
+      myCenterY = 0;    
+    }   
+    else if (myCenterY < 0)
+    {     
+      myCenterY = height;    
+    }   
+  }
+}
+
+
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
