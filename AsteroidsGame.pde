@@ -4,15 +4,24 @@ public void setup()
   //your code here
   size(400, 400);
   frameRate(200);
-
+  Stars twinklers[10] = new Stars[];
+  for(int i = 0; i > 10; i++){
+    
+    
+  }
 }
 SpaceShip bumber = new SpaceShip();
+
 public void draw() 
 {
   //your code here
   background(0);
   bumber.move();
   bumber.show();
+  for(int i = 0; i > 10; i++){
+    
+    twinkle[i].show();
+  }
 
 }
 public void keyPressed(){
@@ -22,7 +31,7 @@ public void keyPressed(){
   if(keyCode == 83){bumber.accelerate(-0.25);} //s
   if(keyCode == 65){bumber.rotate(-10);}   //a
   if(keyCode == 68){bumber.rotate(10);}    //d
-  if(keyCode == 32){bumber.hyperSpace();}
+  if(keyCode == 32) {bumber.hyperSpace();}
 }
 class Stars
 {
@@ -34,19 +43,8 @@ class Stars
   }
   public void show(){
     fill(255,255,0);
-    beginShape();
-    vertex(StarX, StarY + 5);top
-    vertex(StarX -2, StarY + 2);top left
-    vertex(StarX - 5, StarY + 2);left
-    vertex();bottom left
-    vertex();bottom
-    vertex(StarX , starY - 5);middle
-    vertex();bottom
-    vertex();bottom right
-    vertex();right
-    vertex(StarX + 2, StarY + 2;);top right
-    endShape(CLOSE);
-  }
+    ellipse(StarX, StarY, 10, 10);
+  } 
 }
 class SpaceShip extends Floater  
 {   
@@ -83,6 +81,7 @@ class SpaceShip extends Floater
    public void setPointDirection(int degrees) {myPointDirection = degrees;}
    public double getPointDirection() {return myPointDirection;}
    public void hyperSpace(){
+    setPointDirection((int)(Math.random()* 360));
     setDirectionX(0);
     setDirectionY(0);
     setX((int)(Math.random()*400));
