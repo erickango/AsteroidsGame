@@ -1,5 +1,6 @@
 //your variable declarations here
   Stars []twinklers = new Stars[20];
+  Asteroids []meteoroid = new Asteroids[20];
 public void setup() 
 {
   //your code here
@@ -9,6 +10,9 @@ public void setup()
   for(int i = 0; i < twinklers.length; i++){
     twinklers[i] = new Stars();
     
+  }
+  for(int s = 0; s < meteoroid.length; s++){
+    meteoroid[s] = new Asteroids();
   }
 }
 SpaceShip bumber = new SpaceShip();
@@ -23,7 +27,10 @@ public void draw()
     
     twinklers[i].show();
   }
-
+  for(int s = 0; s < meteoroid.length; s++){
+    meteoroid[s].show();
+    meteoroid[s].move();
+  }
 }
 public void keyPressed(){
   if(keyCode == 87){ //w
@@ -44,6 +51,7 @@ class Stars
   }
   public void show(){
     fill(255,255,0);
+    noStroke();
     ellipse(StarX, StarY, 5, 5);
   } 
 }
@@ -94,9 +102,28 @@ class SpaceShip extends Floater
 class Asteroids extends Floater
 {
   protected int rotSpeed;
+  //doesnt show yet
   public Asteroid(){
     rotSpeed = (int)(Math.random() * 0.25);
+    myCenterX = (int)(Math.random() * 300);
+    myCenterY = (int)(Math.random() * 300);
+    int []xCorners = {-11, 7, 13, 6, -11, -5};
+    int []yCorners = {-8, -8, 0, 10, 8, 0};
+    myColor = #FFFFFF;
+    myPointDirection = (int)(Math.random() * 360);
+    myDirectionX = (int)(Math.random() * 3) - 1;
+    myDirectionY = (int)(Math.random() * 3) - 1;
   }
+   public void setX(int x) {myCenterX = x;}
+   public int getX(){return (int)myCenterX;}
+   public void setY(int y) {myCenterY = y;}
+   public int getY() {return (int)myCenterY;}  
+   public void setDirectionX(double x) {myDirectionX = x;}   
+   public double getDirectionX() {return myDirectionX;}
+   public void setDirectionY(double y) {myDirectionY = y;}
+   public double getDirectionY() {return myDirectionY;}
+   public void setPointDirection(int degrees) {myPointDirection = degrees;}
+   public double getPointDirection() {return myPointDirection;}
   public void move(){
     rotate(rotSpeed);
     myCenterX += myDirectionX;    
