@@ -103,7 +103,7 @@ class Asteroids extends Floater
 {
   protected int rotSpeed;
   //doesnt show yet
-  public Asteroid(){
+  public Asteroids(){
     rotSpeed = (int)(Math.random() * 0.25);
     myCenterX = (int)(Math.random() * 300);
     myCenterY = (int)(Math.random() * 300);
