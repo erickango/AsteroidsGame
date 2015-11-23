@@ -1,6 +1,6 @@
 //your variable declarations here
   Stars []twinklers = new Stars[20];
-  Asteroids []meteoroid = new Asteroids[20];
+ Asteroids []meteoroid = new Asteroids[100];
 public void setup() 
 {
   //your code here
@@ -12,7 +12,7 @@ public void setup()
     
   }
   for(int s = 0; s < meteoroid.length; s++){
-    meteoroid[s] = new Asteroids();
+   meteoroid[s] = new Asteroids();
   }
 }
 SpaceShip bumber = new SpaceShip();
@@ -37,9 +37,9 @@ public void keyPressed(){
     bumber.accelerate(0.25); //pretty  fast. constrain
   }
   if(keyCode == 83){bumber.accelerate(-0.25);} //s
-  if(keyCode == 65){bumber.rotate(-10);}   //a
-  if(keyCode == 68){bumber.rotate(10);}    //d
-  if(keyCode == 32) {bumber.hyperSpace();}
+  if(keyCode == 65){bumber.rotate(-20);}   //a
+  if(keyCode == 68){bumber.rotate(20);}    //d
+  if(keyCode == 32) {bumber.hyperSpace();} //space
 }
 class Stars
 {
@@ -104,15 +104,33 @@ class Asteroids extends Floater
   protected int rotSpeed;
   //doesnt show yet
   public Asteroids(){
-    rotSpeed = (int)(Math.random() * 0.25);
+    rotSpeed = (int)(Math.random() * 3) - 1;
     myCenterX = (int)(Math.random() * 300);
     myCenterY = (int)(Math.random() * 300);
-    int []xCorners = {-11, 7, 13, 6, -11, -5};
-    int []yCorners = {-8, -8, 0, 10, 8, 0};
-    myColor = #FFFFFF;
+   // int []xCorners = {-11, 7, 13, 6, -11, -5};
+    //int []yCorners = {-8, -8, 0, 10, 8, 0};
+    corners = 6;
+      yCorners = new int[corners];
+     xCorners = new int[corners];
+    xCorners[0] = -11;
+    xCorners[1] = 7;
+    xCorners[2] = 13;
+    xCorners[3] = 6;
+    xCorners[4] = -11;
+    xCorners[5] = -5;
+
+    yCorners[0] = -8;
+    yCorners[1] = -8;
+    yCorners[2] = 0;
+    yCorners[3] = 10;
+    yCorners[4] = 8;
+    yCorners[5] = 0;
+     ////////////////
+    myColor = #C0C0C0;
     myPointDirection = (int)(Math.random() * 360);
     myDirectionX = (int)(Math.random() * 3) - 1;
     myDirectionY = (int)(Math.random() * 3) - 1;
+
   }
    public void setX(int x) {myCenterX = x;}
    public int getX(){return (int)myCenterX;}
@@ -127,7 +145,9 @@ class Asteroids extends Floater
   public void move(){
     rotate(rotSpeed);
     myCenterX += myDirectionX;    
-    myCenterY += myDirectionY;     
+    myCenterY += myDirectionY;    
+
+    myPointDirection += 0.05; 
 
     //wrap around screen    
     if(myCenterX >width)
