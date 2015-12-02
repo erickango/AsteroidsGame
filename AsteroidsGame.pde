@@ -1,6 +1,6 @@
 //your variable declarations here
   Stars []twinklers = new Stars[20];
- Asteroids []meteoroid = new Asteroids[100];
+ Asteroids []meteoroid = new Asteroids[10];
 public void setup() 
 {
   //your code here
@@ -16,7 +16,7 @@ public void setup()
   }
 }
 SpaceShip bumber = new SpaceShip();
-
+int []keysPuressed = new int[4];
 public void draw() 
 {
   //your code here
@@ -31,15 +31,35 @@ public void draw()
     meteoroid[s].show();
     meteoroid[s].move();
   }
+  if(keysPuressed[0] == 1) bumber.accelerate(0.25);
+  if(keysPuressed[1] == 1){bumber.accelerate(-0.25);}
+  if(keysPuressed[2] == 1){bumber.rotate(-20);}   //a
+  if(keysPuressed[3] == 1){bumber.rotate(20);}    //d
 }
-public void keyPressed(){
-  if(keyCode == 87){ //w
-    bumber.accelerate(0.25); //pretty  fast. constrain
-  }
-  if(keyCode == 83){bumber.accelerate(-0.25);} //s
+
+/*
+bumber.accelerate(0.25)
+if(keyCode == 83){bumber.accelerate(-0.25);}
   if(keyCode == 65){bumber.rotate(-20);}   //a
   if(keyCode == 68){bumber.rotate(20);}    //d
+*/
+
+public void keyPressed(){
+  if(keyCode == 87){ //w
+    keysPuressed[0] = 1; //pretty  fast. constrain
+  }
+  if(keyCode == 83){keysPuressed[1] = 1;} //s
+  if(keyCode == 65){keysPuressed[2] = 1;}   //a
+  if(keyCode == 68){keysPuressed[3] = 1;}    //d
   if(keyCode == 32) {bumber.hyperSpace();} //space
+}
+public void keyReleased() {
+   if(keyCode == 87){ //w
+    keysPuressed[0] = 0; //pretty  fast. constrain
+  }
+  if(keyCode == 83){keysPuressed[1] = 0;} //s
+  if(keyCode == 65){keysPuressed[2] = 0;}   //a
+  if(keyCode == 68){keysPuressed[3] = 0;}    //d
 }
 class Stars
 {
