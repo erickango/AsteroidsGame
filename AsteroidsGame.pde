@@ -1,6 +1,7 @@
 //your variable declarations here
   Stars []twinklers = new Stars[20];
  Asteroids []meteoroid = new Asteroids[10];
+ Bullets []bullets = new Bullets[50];
 public void setup() 
 {
   //your code here
@@ -31,10 +32,10 @@ public void draw()
     meteoroid[s].show();
     meteoroid[s].move();
   }
-  if(keysPuressed[0] == 1) bumber.accelerate(0.25);
-  if(keysPuressed[1] == 1){bumber.accelerate(-0.25);}
-  if(keysPuressed[2] == 1){bumber.rotate(-20);}   //a
-  if(keysPuressed[3] == 1){bumber.rotate(20);}    //d
+  if(keysPuressed[0] == 1) bumber.accelerate(0.025);
+  if(keysPuressed[1] == 1){bumber.accelerate(-0.025);}
+  if(keysPuressed[2] == 1){bumber.rotate(-2);}   //a
+  if(keysPuressed[3] == 1){bumber.rotate(2);}    //d
 }
 
 /*
