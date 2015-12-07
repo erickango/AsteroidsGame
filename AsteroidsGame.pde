@@ -1,7 +1,7 @@
 //your variable declarations here
   Stars []twinklers = new Stars[20];
  Asteroids []meteoroid = new Asteroids[10];
- Bullets []bullets = new Bullets[50];
+ //Bullets []bullets = new Bullets[50];
 public void setup() 
 {
   //your code here
@@ -32,10 +32,18 @@ public void draw()
     meteoroid[s].show();
     meteoroid[s].move();
   }
-  if(keysPuressed[0] == 1) bumber.accelerate(0.025);
-  if(keysPuressed[1] == 1){bumber.accelerate(-0.025);}
+  if(keysPuressed[0] == 1) bumber.accelerate(0.035);
+  if(keysPuressed[1] == 1){bumber.accelerate(-0.035);}
   if(keysPuressed[2] == 1){bumber.rotate(-2);}   //a
   if(keysPuressed[3] == 1){bumber.rotate(2);}    //d
+  constrain((int)bumber.myDirectionX,-10, 10); //asay what? not really
+  constrain((int)bumber.myDirectionY,-10, 10); //doing anything
+  for(int i = 0; i < meteoroid.length; i++){
+    if(bumber.getX() == meteoroid[i].getX() && bumber.getY() == meteoroid[i].getY()){
+      rect(0, 0, 600, 600);
+      System.out.println("GG");
+    }
+  }
 }
 
 /*
@@ -53,9 +61,10 @@ public void keyPressed(){
   if(keyCode == 65){keysPuressed[2] = 1;}   //a
   if(keyCode == 68){keysPuressed[3] = 1;}    //d
   if(keyCode == 32) {bumber.hyperSpace();} //space
+//  if(keyCode == 74){bullets[0] = new Bullets()}
 }
 public void keyReleased() {
-   if(keyCode == 87){ //w
+  if(keyCode == 87){ //w
     keysPuressed[0] = 0; //pretty  fast. constrain
   }
   if(keyCode == 83){keysPuressed[1] = 0;} //s
@@ -67,8 +76,8 @@ class Stars
   int StarX;
   int StarY;
   public Stars(){
-    StarX = (int)(Math.random()*400);
-    StarY = (int)(Math.random()*400);
+    StarX = (int)(Math.random()*600);
+    StarY = (int)(Math.random()*600);
   }
   public void show(){
     fill(255,255,0);
@@ -76,6 +85,24 @@ class Stars
     ellipse(StarX, StarY, 5, 5);
   } 
 }
+
+/*class Bullets{
+  public Bullets(int x, int y){
+    bulletX = x;
+    bulletY = y;
+  }
+  public void show(){
+
+  }
+  public void move(){
+    //unless bullets hits meteroid or goes off screen, keep moving
+
+  }
+
+
+
+}
+*/
 class SpaceShip extends Floater  
 {   
     //your code here
