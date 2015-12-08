@@ -15,9 +15,11 @@ public void setup()
   for(int s = 0; s < meteoroid.length; s++){
    meteoroid[s] = new Asteroids();
   }
+
 }
 SpaceShip bumber = new SpaceShip();
 int []keysPuressed = new int[4];
+int gameover = 0;
 public void draw() 
 {
   //your code here
@@ -36,16 +38,23 @@ public void draw()
   if(keysPuressed[1] == 1){bumber.accelerate(-0.035);}
   if(keysPuressed[2] == 1){bumber.rotate(-2);}   //a
   if(keysPuressed[3] == 1){bumber.rotate(2);}    //d
-  constrain((int)bumber.myDirectionX,-10, 10); //asay what? not really
-  constrain((int)bumber.myDirectionY,-10, 10); //doing anything
+
   for(int i = 0; i < meteoroid.length; i++){
     if(bumber.getX() == meteoroid[i].getX() && bumber.getY() == meteoroid[i].getY()){
-      rect(0, 0, 600, 600);
-      System.out.println("GG");
+      gameover = 1;
     }
   }
+  if(gameover == 1){
+    gameover();
+  }
+  Bullets oneB = new Bullets(bumber);
 }
 
+public void gameover(){
+  fill(255, 255, 0);
+  rect(50, 50, 600, 600);
+
+}
 /*
 bumber.accelerate(0.25)
 if(keyCode == 83){bumber.accelerate(-0.25);}
@@ -86,23 +95,38 @@ class Stars
   } 
 }
 
-/*class Bullets{
-  public Bullets(int x, int y){
-    bulletX = x;
-    bulletY = y;
+class Bullets extends Floater{
+  public Bullets(SpaceShip theShip){
+    myCenterX = theShip.getX();
+    myCenterY = theShip.getY();
+    myPointDirection = theShip.getPointDirection();
+    double dRadians =myPointDirection*(Math.PI/180);
+    myDirectionX = 5 * Math.cos(dRadians)+myDirectionX;
+    myDirectionY = 5 * Math.cos(dRadians)+myDirectionY;
   }
   public void show(){
-
+    fill(0, 204, 0);
+    ellipse((int)myCenterX, (int)myCenterY, 5, 5);
   }
   public void move(){
     //unless bullets hits meteroid or goes off screen, keep moving
 
   }
+     public void setX(int x) {myCenterX = x;}
+   public int getX(){return (int)myCenterX;}
+   public void setY(int y) {myCenterY = y;}
+   public int getY() {return (int)myCenterY;}  
+   public void setDirectionX(double x) {myDirectionX = x;}   
+   public double getDirectionX() {return myDirectionX;}
+   public void setDirectionY(double y) {myDirectionY = y;}
+   public double getDirectionY() {return myDirectionY;}
+   public void setPointDirection(int degrees) {myPointDirection = degrees;}
+   public double getPointDirection() {return myPointDirection;}
 
 
 
 }
-*/
+
 class SpaceShip extends Floater  
 {   
     //your code here
