@@ -1,7 +1,8 @@
 //your variable declarations here
   Stars []twinklers = new Stars[20];
  Asteroids []meteoroid = new Asteroids[10];
- //Bullets []bullets = new Bullets[50];
+ArrayList <Bullets> gunnem = new ArrayList<Bullets>();
+ int relod = 0;
 public void setup() 
 {
   //your code here
@@ -20,6 +21,8 @@ public void setup()
 SpaceShip bumber = new SpaceShip();
 int []keysPuressed = new int[4];
 int gameover = 0;
+
+Bullets oneB = new Bullets(bumber);
 public void draw() 
 {
   //your code here
@@ -39,21 +42,38 @@ public void draw()
   if(keysPuressed[2] == 1){bumber.rotate(-2);}   //a
   if(keysPuressed[3] == 1){bumber.rotate(2);}    //d
 
-  for(int i = 0; i < meteoroid.length; i++){
-    if(bumber.getX() == meteoroid[i].getX() && bumber.getY() == meteoroid[i].getY()){
+/*  for(int i = 0; i < meteoroid.length; i++){
+    if((bumber.getX() >= (meteoroid[i].getX()-5 )|| bumber.getX() <= (meteoroid[i].getX()+5)) && (bumber.getY() >= (meteoroid[i].getY()-5) || bumber.getY() <= (meteoroid[i].getY()+5))){
       gameover = 1;
     }
-  }
+  } 
   if(gameover == 1){
     gameover();
   }
-  Bullets oneB = new Bullets(bumber);
-}
+*/
+  oneB.show();
+  oneB.move();
 
+  if(gunnem.size() > 1){
+  for(int x = 0; x < gunnem.size(); x++){
+    Bullets quickB = gunnem.get(x);
+    for(int ap  = 0; ap < meteoroid.length; ap++){
+
+      if((quickB.getX() >= meteoroid[ap].getX() -5 || quickB.getX() <= meteoroid[ap].getX() +5) && (quickB.getY() >= meteoroid[ap].getY() -5 || quickB.getY() <= meteoroid[ap].getY() +5)){
+        quickB.show();
+        quickB.move();
+      }
+    }
+
+
+  }
+  
+}
+}
 public void gameover(){
   fill(255, 255, 0);
-  rect(50, 50, 600, 600);
-
+  rect(0,0 , 600, 600);
+  text("GameOver man", 300, 300);
 }
 /*
 bumber.accelerate(0.25)
@@ -70,7 +90,9 @@ public void keyPressed(){
   if(keyCode == 65){keysPuressed[2] = 1;}   //a
   if(keyCode == 68){keysPuressed[3] = 1;}    //d
   if(keyCode == 32) {bumber.hyperSpace();} //space
-//  if(keyCode == 74){bullets[0] = new Bullets()}
+  if(keyCode == 74){
+    gunnem.add(new Bullets(bumber));
+  }
 }
 public void keyReleased() {
   if(keyCode == 87){ //w
@@ -96,11 +118,12 @@ class Stars
 }
 
 class Bullets extends Floater{
+  double dRadians;
   public Bullets(SpaceShip theShip){
     myCenterX = theShip.getX();
     myCenterY = theShip.getY();
     myPointDirection = theShip.getPointDirection();
-    double dRadians =myPointDirection*(Math.PI/180);
+    dRadians =myPointDirection*(Math.PI/180);
     myDirectionX = 5 * Math.cos(dRadians)+myDirectionX;
     myDirectionY = 5 * Math.cos(dRadians)+myDirectionY;
   }
@@ -109,9 +132,10 @@ class Bullets extends Floater{
     ellipse((int)myCenterX, (int)myCenterY, 5, 5);
   }
   public void move(){
-    //unless bullets hits meteroid or goes off screen, keep moving
-
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;    
   }
+
      public void setX(int x) {myCenterX = x;}
    public int getX(){return (int)myCenterX;}
    public void setY(int y) {myCenterY = y;}
@@ -165,8 +189,8 @@ class SpaceShip extends Floater
     setPointDirection((int)(Math.random()* 360));
     setDirectionX(0);
     setDirectionY(0);
-    setX((int)(Math.random()*400));
-    setY((int)(Math.random()*400));
+    setX((int)(Math.random()*600));
+    setY((int)(Math.random()*600));
    }
 }
 
